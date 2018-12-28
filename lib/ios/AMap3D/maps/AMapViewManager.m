@@ -69,4 +69,12 @@ RCT_EXPORT_METHOD(animateTo:(nonnull NSNumber *)reactTag params:(NSDictionary *)
         [mapView setMapStatus:mapStatus animated:YES duration:duration / 1000.0];
     }];
 }
+
+RCT_EXPORT_METHOD(changeLanguage:(nonnull NSNumber *)reactTag language:(NSInteger)language) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        MAMapView *mapView = ((AMapView *) viewRegistry[reactTag]).mapView;
+        [mapView performSelector:NSSelectorFromString(@"setMapLanguage:") withObject:@(language)];
+    }];
+}
+
 @end
